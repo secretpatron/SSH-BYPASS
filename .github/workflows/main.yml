@@ -1,4 +1,4 @@
-name: Connect to SSH and Keep Alive with tmux
+name: Connect to SSH UNLIMIT TIME with tmux
 
 on:
   workflow_dispatch:
