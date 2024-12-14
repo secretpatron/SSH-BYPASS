@@ -7,7 +7,7 @@ REMOTE_SERVER="root@lulz.segfault.net"
 # Check if tmux session exists
 if ! tmux has-session -t ssh_session 2>/dev/null; then
   echo "Starting new tmux session for SSH..."
-  tmux new-session -d -s ssh_session "sshpass -p 'segfault' ssh -L${VNC_PORT}:localhost:${VNC_PORT} -o 'SetEnv SECRET=YOUR SECRET KEY' ${REMOTE_SERVER}"
+  tmux new-session -d -s ssh_session "sshpass -p 'segfault' ssh -L${VNC_PORT}:localhost:${VNC_PORT} -o 'SetEnv SECRET=8lgm-Nhwod2sFV1tDZNNWuXPBx8Ll' ${REMOTE_SERVER}"
 else
   echo "tmux session already exists."
 fi
