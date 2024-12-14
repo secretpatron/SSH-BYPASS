@@ -2,19 +2,20 @@
 
 # پورت VNC برای فورواردینگ
 VNC_PORT=5900
+REMOTE_SERVER="root@lulz.segfault.net"
 
 # Check if tmux session exists
 if ! tmux has-session -t ssh_session 2>/dev/null; then
   echo "Starting new tmux session for SSH..."
-  tmux new-session -d -s ssh_session "sshpass -p 'segfault' ssh -L${VNC_PORT}:localhost:${VNC_PORT} -o 'SetEnv SECRET=8lgm-Nhwod2sFV1tDZNNWuXPBx8Ll' root@lulz.segfault.net"
+  tmux new-session -d -s ssh_session "sshpass -p 'segfault' ssh -L${VNC_PORT}:localhost:${VNC_PORT} -o 'SetEnv SECRET=YOUR SECRET KEY' ${REMOTE_SERVER}"
 else
   echo "tmux session already exists."
 fi
 
-# Check if VNC server is running on remote
-echo "Checking if VNC server is accessible on localhost:${VNC_PORT}..."
-if nc -z localhost ${VNC_PORT}; then
-  echo "VNC server is accessible. You can connect using: vncviewer localhost:${VNC_PORT}"
+# Check if VNC server is running on remote server (not localhost)
+echo "Checking if VNC server is accessible on remote server ${REMOTE_SERVER} at port ${VNC_PORT}..."
+if nc -z ${REMOTE_SERVER} ${VNC_PORT}; then
+  echo "VNC server is accessible on ${REMOTE_SERVER}. You can connect using: vncviewer localhost:${VNC_PORT}"
 else
   echo "Warning: VNC server on remote may not be running or accessible."
 fi
