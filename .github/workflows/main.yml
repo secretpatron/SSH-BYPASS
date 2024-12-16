@@ -11,6 +11,12 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Remove locks if exist
+      run: |
+        sudo rm -f /var/lib/dpkg/lock-frontend
+        sudo rm -f /var/lib/dpkg/lock
+        sudo dpkg --configure -a
+
     - name: Install sshpass and tmux
       run: |
         sudo apt-get update -y
@@ -18,4 +24,11 @@ jobs:
 
     - name: Run SSH Connection Script in tmux
       run: |
-        sudo tmux new-session -d -s ssh-session "bash connect_ssh.sh"
+        # Check if tmux session already exists, if yes, attach to it
+        if tmux has-session -t ssh-session 2>/dev/null; then
+          echo "Attaching to existing tmux session"
+          tmux attach-session -t ssh-session
+        else
+          echo "Starting new tmux session"
+          sudo tmux new-session -d -s ssh-session "bash connect_ssh.sh"
+        fi
