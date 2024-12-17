@@ -32,3 +32,4 @@ jobs:
           echo "Starting new tmux session"
           sudo tmux new-session -d -s ssh-session "bash connect_ssh.sh"
         fi
+        continue-on-error: true
