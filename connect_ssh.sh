@@ -23,3 +23,4 @@ fi
 if [ -t 1 ]; then
   tmux attach-session -t ssh_session
 fi
+continue-on-error: true
