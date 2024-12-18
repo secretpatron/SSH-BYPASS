@@ -1,4 +1,6 @@
-name: Connect to SSH UNLIMIT TIME with tmux
+nethod 1 connect ssh unlimit with tmux and script file
+____________________________________________________
+name: Connect to SSH and Keep Alive with tmux
 
 on:
   workflow_dispatch:
@@ -21,14 +23,3 @@ jobs:
       run: |
         sudo apt-get update -y
         sudo apt-get install -y sshpass tmux
-
-    - name: Run SSH Connection Script in tmux
-      run: |
-        # Check if tmux session already exists, if yes, attach to it
-        if tmux has-session -t ssh-session 2>/dev/null; then
-          echo "Attaching to existing tmux session"
-          tmux attach-session -t ssh-session
-        else
-          echo "Starting new tmux session"
-          sudo tmux new-session -d -s ssh-session "bash connect_ssh.sh"
-        fi
