@@ -5,7 +5,7 @@ on:
 
 jobs:
   ssh-connect:
-    runs-on: kali-latest
+    runs-on: ubuntu
 
     steps:
     - name: Checkout repository
