@@ -22,9 +22,6 @@ jobs:
         sudo apt-get update -y
         sudo apt-get install -y sshpass tmux
 
-    - name: Export SSH Password
-      run: echo "SSH_PASSWORD=segfault" >> $GITHUB_ENV
-
     - name: Run SSH Connection Script in tmux
       run: |
         if tmux has-session -t ssh-session 2>/dev/null; then
