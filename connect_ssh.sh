@@ -2,7 +2,7 @@
 
 # Check if tmux session exists
 if ! tmux has-session -t ssh_session 2>/dev/null; then
-  tmux new-session -d -s ssh_session "sshpass -p 'segfault' ssh -X -L5900:0:5900 -o 'SetEnv SECRET=Nhwod2sFV1tDZNNWuXPBx8Ll' root@lulz.segfault.net"
+  tmux new-session -d -s ssh_session "sshpass -p 'segfault' ssh -X -L5900:0:5900 -o 'SetEnv SECRET=IKchmmqmqWXCmHKqmTEDilqd' root@lulz.segfault.net"
 fi
 
 # Only attach session if running in a terminal
