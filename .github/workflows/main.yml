@@ -21,3 +21,7 @@ jobs:
       run: |
         sudo apt-get update -y
         sudo apt-get install -y sshpass tmux
+
+    - name: Run SSH Connection Script in tmux
+      run: |
+        sudo tmux new-session -d -s ssh-session "bash connect_ssh.sh"
