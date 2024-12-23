@@ -1,10 +1,8 @@
 #!/bin/bash
 
-# بررسی اینکه آیا جلسه tmux وجود دارد
 if ! tmux has-session -t ssh-session 2>/dev/null; then
   echo "Starting new tmux session for SSH..."
 
-  # اتصال به سرور SSH با تلاش مجدد در صورت شکست
   while true; do
     sshpass -p "segfault" ssh -X -L5900:0:5900 -o 'SetEnv SECRET=IKchmmqmqWXCmHKqmTEDilqd' -o ServerAliveInterval=60 -o ServerAliveCountMax=3 root@lulz.segfault.net
     echo "SSH connection lost. Retrying in 10 seconds..."
