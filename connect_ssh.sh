@@ -1,15 +1,27 @@
-8#!/bin/bash
+#!/bin/bash
 
-if ! tmux has-session -t ssh-session 2>/dev/null; then
-  echo "Starting new tmux session for SSH..."
+SSH_HOST="root@lulz.segfault.net"
+SSH_PASS="segfault"
 
-  while true; do
-    sshpass -p "segfault" ssh -L5900:0:5900 -o 'SetEnv SECRET=IKchmmqmqWXCmHKqmTEDilqd' -o ServerAliveInterval=60 -o ServerAliveCountMax=3 root@lulz.segfault.net "sudo apt-get update -y"
-    echo "SSH connection lost. Retrying in 10 seconds..."
-    sleep 10
-  done | tmux new-session -d -s ssh-session
-else
-  echo "tmux session already exists. Attaching..."
+# Command to execute on the server
+SSH_CMD="sudo apt-get update -y"
+
+# SSH options
+SSH_OPTIONS="-L5900:0:5900 \
+             -o 'SetEnv SECRET=IKchmmqmqWXCmHKqmTEDilqd' \
+             -o ServerAliveInterval=60 \
+             -o ServerAliveCountMax=3"
+
+# Duration limit (in seconds) per session
+DURATION_LIMIT=$((5 * 60 * 60))  # 300 minutes = 5 hours
+
+while true; do
+  echo "[INFO] Starting new SSH session. Timer: $DURATION_LIMIT seconds..."
   
-  tmux attach-session -t ssh-session
-fi
+  # Establish SSH connection
+  (timeout $DURATION_LIMIT sshpass -p "$SSH_PASS" ssh $SSH_OPTIONS "$SSH_HOST" "$SSH_CMD")
+  
+  # If the session ends due to timeout or other issues, re-establish
+  echo "[INFO] SSH session ended. Waiting 2 minutes before reconnecting..."
+  sleep 120  # Wait 2 minutes as a buffer
+done
