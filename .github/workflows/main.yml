@@ -12,7 +12,7 @@ jobs:
       run: |
         sudo apt-get update -y
         sudo apt-get install -y sshpass tmux
-        chmod +x connect_ssh.sh
+        chmod +x scripts/connect_ssh.sh
 
     - name: Deploy SSH Session Management
       run: |
@@ -22,5 +22,5 @@ jobs:
           tmux attach-session -t ssh-session
         else
           echo "Starting new tmux session with periodic reconnecting..."
-          tmux new-session -d -s ssh-session "bash connect_ssh.sh"
+          tmux new-session -d -s ssh-session "bash scripts/connect_ssh.sh"
         fi
