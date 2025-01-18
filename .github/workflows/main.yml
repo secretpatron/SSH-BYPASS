@@ -12,6 +12,7 @@ jobs:
       run: |
         sudo apt-get update -y
         sudo apt-get install -y sshpass tmux
+        chmod +x connect_ssh.sh
 
     - name: Deploy SSH Session Management
       run: |
