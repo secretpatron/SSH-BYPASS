@@ -10,12 +10,18 @@ SSH_OPTIONS="-L5900:0:5900 \
              -o ServerAliveCountMax=3"
 
 while true; do
-  echo "[INFO] Starting new SSH session..."
+  echo "[INFO] Attempting SSH connection..."
   
-  # Establish SSH connection and keep the shell open
-  sshpass -p "$SSH_PASS" ssh $SSH_OPTIONS -tt "$SSH_HOST"
+  # Establish SSH connection using sshpass and keep the shell open
+  sshpass -p "$SSH_PASS" ssh $SSH_OPTIONS -tt "$SSH_HOST" "bash -l"
   
-  # If the session ends, re-establish after 2 minutes
-  echo "[INFO] SSH session ended. Waiting 2 minutes before reconnecting..."
-  sleep 120  # Wait 2 minutes as a buffer
+  # Check if session failed
+  if [ $? -ne 0 ]; then
+    echo "[ERROR] SSH session failed. Retrying in 10 seconds..."
+  else
+    echo "[INFO] SSH session ended gracefully. Restarting in 10 seconds..."
+  fi
+  
+  # Wait 10 seconds before reconnecting
+  sleep 10
 done
