@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SSH_HOST="root@admin.segfault.net"
+SSH_HOST="root@adm.segfault.net"
 SSH_PASS="segfault"
 
 # SSH options
